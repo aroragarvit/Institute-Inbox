@@ -1,9 +1,12 @@
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 
+import { login } from "../functions/SignIn.jsx";
+
 const Login = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+    login(values.email, values.password);
   };
 
   return (

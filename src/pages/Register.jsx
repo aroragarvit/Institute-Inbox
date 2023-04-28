@@ -1,18 +1,8 @@
+import { signup } from "../functions/Signup.jsx";
 import { PlusOutlined } from "@ant-design/icons";
-import {
-  AutoComplete,
-  Button,
-  Checkbox,
-  Col,
-  Form,
-  Input,
-  Row,
-  Select,
-  Upload,
-} from "antd";
+import { Button, Checkbox, Form, Input, Select, Upload } from "antd";
 import PhoneInput from "antd-phone-input";
 
-import { useState } from "react";
 const { Option } = Select;
 
 const normFile = (e) => {
@@ -54,8 +44,9 @@ const tailFormItemLayout = {
 };
 const Register = () => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Received values of form: ", values);
+    await signup(values);
   };
 
   return (
