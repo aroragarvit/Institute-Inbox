@@ -2,6 +2,7 @@ import { signup } from "../functions/Signup.jsx";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Select, Upload } from "antd";
 import PhoneInput from "antd-phone-input";
+import { useState } from "react";
 
 const { Option } = Select;
 
@@ -43,10 +44,17 @@ const tailFormItemLayout = {
   },
 };
 const Register = () => {
+  const [file, setFile] = useState(null);
   const [form] = Form.useForm();
   const onFinish = async (values) => {
-    console.log("Received values of form: ", values);
-    await signup(values);
+    console.log("Received values of form: ", {
+      ...values,
+      image: file,
+    });
+    await signup({
+      ...values,
+      image: file,
+    });
   };
 
   return (
@@ -216,7 +224,13 @@ const Register = () => {
             valuePropName="fileList"
             getValueFromEvent={normFile}
           >
-            <Upload action="/upload.do" listType="picture-card">
+            <Upload
+              listType="picture-card"
+              multiple={false}
+              onChange={(file) => {
+                setFile(file.fileList[0].originFileObj);
+              }}
+            >
               <div>
                 <PlusOutlined />
                 <div style={{ marginTop: 8 }}>Upload</div>

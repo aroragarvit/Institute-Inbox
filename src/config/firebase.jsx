@@ -3,6 +3,7 @@ import "firebase/compat/auth";
 import "firebase/compat/messaging";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAiKT--M5urs0FkSbVhRShgPBAonmo8SY4",
   authDomain: "institute-inbox.firebaseapp.com",

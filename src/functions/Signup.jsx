@@ -1,5 +1,8 @@
 import { auth, firestore, storage } from "../config/firebase";
 import { uploadImage } from "../utilities/UploadImage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { updateProfile } from "firebase/auth";
+
 export const signup = async (values) => {
   try {
     const userCredential = await auth.createUserWithEmailAndPassword(
@@ -29,14 +32,17 @@ export const signup = async (values) => {
       throw new Error("Please verify your email to sign up.");
     }
 
-    const url = await uploadImage(values.image, user.uid);
+    const reff = ref(storage, `${user.uid}.jpg`);
+    const snapshot = await uploadBytesResumable(reff, values.image);
+    const url = await getDownloadURL(snapshot.ref);
 
     // Update the user's profile
-    await user.updateProfile({
-      displayName: values.name,
-      email: values.email,
-      photoURL: url,
-    });
+    // await user.updateProfile(user, {
+    //   displayName: values.name,
+    //   photoURL: url,
+    // });
+
+    // console.log(user);
 
     // Create a new document in the users collection with the uid of the user
     const usersCollection = firestore.collection("users");
