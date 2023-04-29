@@ -55,15 +55,15 @@ export const signup = async (values) => {
       {
         merge: true,
         //Specify data types for each field using Firebase's FieldValue object
-        email: firebase.firestore.FieldValue.email(),
-        name: firebase.firestore.FieldValue.string(),
-        photoURL: firebase.firestore.FieldValue.string(),
-        phoneNumber: firebase.firestore.FieldValue.arrayUnion(values.phone),
-        uid: firebase.firestore.FieldValue.string(),
-        hostel: firebase.firestore.FieldValue.string(),
-        block: firebase.firestore.FieldValue.string(),
-        gender: firebase.firestore.FieldValue.string(),
-        isAvailable: firebase.firestore.FieldValue.boolean(),
+        email: firestore.FieldValue.email(),
+        name: firestore.FieldValue.string(),
+        photoURL: firestore.FieldValue.string(),
+        phoneNumber: firestore.FieldValue.arrayUnion(values.phone),
+        uid: firestore.FieldValue.string(),
+        hostel: firestore.FieldValue.string(),
+        block: firestore.FieldValue.string(),
+        gender: firestore.FieldValue.string(),
+        isAvailable: firestore.FieldValue.boolean(),
       }
     );
 
