@@ -37,18 +37,19 @@ export const signup = async (values) => {
     const url = await getDownloadURL(snapshot.ref);
 
     // Update the user's profile
-    // await user.updateProfile(user, {
-    //   displayName: values.name,
-    //   photoURL: url,
-    // });
+    await user.updateProfile({
+      email: values.email,
+      displayName: values.name,
+      photoURL: url,
+    });
 
-    // console.log(user);
+    console.log(user);
 
     // Create a new document in the users collection with the uid of the user
     const usersCollection = firestore.collection("users");
     await usersCollection.doc(user.uid).set(
       {
-        email: user.email,
+        email: values.email,
         name: values.name,
         photoURL: url,
         phoneNumber: values.phone,
@@ -57,19 +58,6 @@ export const signup = async (values) => {
         block: values.Block,
         gender: values.gender,
         isAvailable: false, // or false
-      },
-      {
-        merge: true,
-        //Specify data types for each field using Firebase's FieldValue object
-        email: firestore.FieldValue.email(),
-        name: firestore.FieldValue.string(),
-        photoURL: firestore.FieldValue.string(),
-        phoneNumber: firestore.FieldValue.arrayUnion(values.phone),
-        uid: firestore.FieldValue.string(),
-        hostel: firestore.FieldValue.string(),
-        block: firestore.FieldValue.string(),
-        gender: firestore.FieldValue.string(),
-        isAvailable: firestore.FieldValue.boolean(),
       }
     );
 
