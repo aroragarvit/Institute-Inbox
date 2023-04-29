@@ -25,6 +25,7 @@ export const signup = async (values) => {
     if (!user.emailVerified) {
       // If the user's email is still not verified after 5 minutes, delete the user and throw an error
       await user.delete();
+      await auth.signOut();
       throw new Error("Please verify your email to sign up.");
     }
 
@@ -39,16 +40,32 @@ export const signup = async (values) => {
 
     // Create a new document in the users collection with the uid of the user
     const usersCollection = firestore.collection("users");
-    await usersCollection.doc(user.uid).set({
-      email: user.email,
-      name: values.name,
-      photoURL: url,
-      phoneNumber: values.phone,
-      uid: user.uid,
-      hostel: values.Hostel,
-      block: values.Block,
-      gender: values.gender,
-    });
+    await usersCollection.doc(user.uid).set(
+      {
+        email: user.email,
+        name: values.name,
+        photoURL: url,
+        phoneNumber: values.phone,
+        uid: user.uid,
+        hostel: values.Hostel,
+        block: values.Block,
+        gender: values.gender,
+        isAvailable: false, // or false
+      },
+      {
+        merge: true,
+        //Specify data types for each field using Firebase's FieldValue object
+        email: firebase.firestore.FieldValue.email(),
+        name: firebase.firestore.FieldValue.string(),
+        photoURL: firebase.firestore.FieldValue.string(),
+        phoneNumber: firebase.firestore.FieldValue.arrayUnion(values.phone),
+        uid: firebase.firestore.FieldValue.string(),
+        hostel: firebase.firestore.FieldValue.string(),
+        block: firebase.firestore.FieldValue.string(),
+        gender: firebase.firestore.FieldValue.string(),
+        isAvailable: firebase.firestore.FieldValue.boolean(),
+      }
+    );
 
     return user;
   } catch (error) {
