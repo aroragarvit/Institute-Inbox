@@ -31,10 +31,7 @@ export const signup = async (values) => {
       await auth.signOut();
       throw new Error("Please verify your email to sign up.");
     }
-
-    const reff = ref(storage, `${user.uid}.jpg`);
-    const snapshot = await uploadBytesResumable(reff, values.image);
-    const url = await getDownloadURL(snapshot.ref);
+    const url = await uploadImage(values.image, user.uid);
 
     // Update the user's profile
     await user.updateProfile({
@@ -47,19 +44,18 @@ export const signup = async (values) => {
 
     // Create a new document in the users collection with the uid of the user
     const usersCollection = firestore.collection("users");
-    await usersCollection.doc(user.uid).set(
-      {
-        email: values.email,
-        name: values.name,
-        photoURL: url,
-        phoneNumber: values.phone,
-        uid: user.uid,
-        hostel: values.Hostel,
-        block: values.Block,
-        gender: values.gender,
-        isAvailable: false, // or false
-      }
-    );
+
+    await usersCollection.doc(user.uid).set({
+      email: values.email,
+      name: values.name,
+      photoURL: url,
+      phoneNumber: values.phone,
+      uid: user.uid,
+      hostel: values.Hostel,
+      block: values.Block,
+      gender: values.gender,
+      isAvailable: false, // or false
+    });
 
     return user;
   } catch (error) {

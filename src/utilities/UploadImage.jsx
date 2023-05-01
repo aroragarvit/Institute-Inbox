@@ -6,7 +6,7 @@ export const uploadImage = async (file, uid) => {
     const imageFolderRef = storageRef.child("images");
 
     const uidRef = imageFolderRef.child(uid);
-    const imageRef = uidRef.child(file);
+    const imageRef = uidRef.child(file.name);
 
     await imageRef.put(file);
     const url = await imageRef.getDownloadURL();

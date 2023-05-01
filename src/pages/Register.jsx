@@ -92,6 +92,21 @@ const Register = () => {
           scrollToFirstError
         >
           <Form.Item
+            name="name"
+            label="User-Name"
+            rules={[
+              {
+                type: "string",
+              },
+              {
+                required: true,
+                message: "Please input your Name",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
             name="email"
             label="E-mail"
             rules={[
