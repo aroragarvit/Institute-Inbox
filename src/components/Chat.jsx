@@ -1,14 +1,13 @@
+import Messages from "./Messages.jsx";
+import Input from "./Input.jsx";
 const chat = function () {
   return (
-    <div
-      style={{
-        display: "flex",
-
-        width: "65%",
-        backgroundColor: "#D8F0FA",
-      }}
-    >
-      Chat
+    <div className="chat">
+      <div className="chatInfo">
+        <span>Jane</span>
+      </div>
+      <Messages />
+      <Input />
     </div>
   );
 };

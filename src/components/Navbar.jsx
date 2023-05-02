@@ -1,14 +1,13 @@
 const Navbar = () => {
   return (
-    <div
-      stype={{
-        display: "flex",
-        backgroundColor: "black",
-        border: "1px solid black",
-        height: "10%",
-        width: "100%",
-      }}
-    ></div>
+    <div className="navbar">
+      <span className="logo"> CollegeChat</span>
+      <div className="user">
+        <img src="https://picsum.photos/200" alt="user" />
+        <span>Username</span>
+        <button>Logout</button>
+      </div>
+    </div>
   );
 };
 export default Navbar;
