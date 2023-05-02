@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import "./style.scss";
+import AuthProvider from "./context/AuthContext.jsx";
 function App() {
   return (
     <Router>
@@ -17,5 +18,14 @@ function App() {
     </Router>
   );
 }
+function WrappedApp() {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+}
 
-export default App;
+export default function () {
+  return <WrappedApp />;
+}
