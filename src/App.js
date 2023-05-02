@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import "./style.scss";
 import AuthProvider from "./context/AuthContext.jsx";
+import Availablebox from "./components/Avialablebox";
 function App() {
   return (
     <Router>
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Login></Login>} />
         <Route path="/register" element={<Register></Register>} />
         <Route path="/home" element={<Home></Home>} />
+        <Route path="/available" element={<Availablebox></Availablebox>} />
       </Routes>
     </Router>
   );
@@ -25,7 +27,4 @@ function WrappedApp() {
     </AuthProvider>
   );
 }
-
-export default function () {
-  return <WrappedApp />;
-}
+export default App;
