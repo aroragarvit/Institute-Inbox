@@ -6,8 +6,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Available from "./pages/Available";
-import "./style.scss";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Availablebox from "./components/Avialablebox";
+import "./style.scss";
 
 function App() {
   return (
@@ -16,7 +17,14 @@ function App() {
         <Route path="/" element={<Login></Login>} />
         <Route path="/register" element={<Register></Register>} />
         <Route path="/home" element={<Home></Home>} />
-        <Route path="/available" element={<Available />} />
+        <Route
+          path="/available"
+          element={
+            <ProtectedRoute>
+              <Available />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
