@@ -5,6 +5,7 @@ import React from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import Available from "./pages/Available";
 import "./style.scss";
 import AuthProvider from "./context/AuthContext.jsx";
 import Availablebox from "./components/Avialablebox";
@@ -15,7 +16,7 @@ function App() {
         <Route path="/" element={<Login></Login>} />
         <Route path="/register" element={<Register></Register>} />
         <Route path="/home" element={<Home></Home>} />
-        <Route path="/available" element={<Availablebox></Availablebox>} />
+        <Route path="/available" element={<Available />} />
       </Routes>
     </Router>
   );
