@@ -7,8 +7,9 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Available from "./pages/Available";
 import "./style.scss";
-import AuthProvider from "./context/AuthContext.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 import Availablebox from "./components/Avialablebox";
+
 function App() {
   return (
     <Router>
@@ -21,11 +22,5 @@ function App() {
     </Router>
   );
 }
-function WrappedApp() {
-  return (
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  );
-}
+
 export default App;
