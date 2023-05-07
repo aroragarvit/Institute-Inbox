@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       console.log("Auth state changed.");
       setUser(user);
-      setIsLoadingUser(false);
+      setIsLoadingUser(false); //  as user is not fetched in the beginning and it directly goes to the protected route so we need to wait for the user to be fetched and then go to the protected route so we use this state otherwise it will agarin and again  redirect to the login page
     });
     return unsubscribe;
   }, []);

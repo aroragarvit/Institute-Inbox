@@ -1,15 +1,44 @@
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Spin } from "antd";
 
 import { login } from "../functions/SignIn.jsx";
 
+import { auth } from "../config/firebase.jsx";
 const Login = () => {
+  const redirect = useNavigate();
+  const user = auth.currentUser;
+  useEffect(() => {
+    if (user) {
+      console.log("redirecting to home");
+      setTimeout(() => {
+        redirect("/available");
+      }, 500);
+    }
+  }, [redirect, user]);
+
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
     login(values.email, values.password);
   };
-
+  if (user) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          width: "100vw",
+        }}
+      >
+        <Spin />
+      </div>
+    );
+  }
   return (
     <div
       style={{
