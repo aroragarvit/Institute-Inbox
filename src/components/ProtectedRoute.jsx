@@ -3,13 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { Spin } from "antd";
 
+import { useEffect } from "react";
 const ProtectedRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
   const redirect = useNavigate();
+  useEffect(() => {
+    if (!user) {
+      console.log("redirecting to login");
+      setTimeout(() => {
+        redirect("/");
+      }, 500);
+    }
+  }, [redirect, user]);
 
   if (!user) {
-    console.log("redirecting to login");
-    redirect("/");
     return (
       <div
         style={{
