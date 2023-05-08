@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Space } from 'antd';
 import { auth, firestore } from "../config/firebase.jsx";
 
 const AvailableButton = () => {
@@ -64,7 +65,7 @@ const AvailableButton = () => {
 
   return (
     <div>
-      <button onClick={handleAvailableClick}>Set Availability</button>
+      <Button type="primary" onClick={handleAvailableClick}>Set Availability</Button>
     </div>
   );
 };
