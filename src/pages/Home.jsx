@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchUsers } from "../utilities/FetchAvailableUsers .jsx";
+import { fetchUsers } from "../utilities/FetchAvailableUsers.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import Chat from "../components/Chat.jsx";
 
