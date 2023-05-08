@@ -1,10 +1,11 @@
-import { AvailableCard } from "../components/AvailableCard";
+import { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import { MessageOutlined, CheckOutlined } from "@ant-design/icons";
+import { AvailableCard } from "../components/AvailableCard";
+import { fetchUsers } from "../utilities/FetchAvailableUsers .jsx";
 import Availablebox from "../components/Avialablebox";
 import AvailableButton from "../utilities/AvailableButton_";
-import { fetchUsers } from "../utilities/FetchAvailableUsers .jsx";
-import { useState, useEffect } from "react";
+
 const Available = () => {
   {
     const [users, setUsers] = useState([]);
@@ -30,7 +31,6 @@ const Available = () => {
         }}
       >
         <Availablebox />
-        <AvailableButton />
         <Tabs
           style={{
             backgroundColor: "white",
@@ -39,6 +39,9 @@ const Available = () => {
             marginTop: "1rem",
           }}
           defaultActiveKey="1"
+          tabBarExtraContent={{
+            right: <AvailableButton />,
+          }}
           items={[
             {
               key: "1",
@@ -78,9 +81,13 @@ const Available = () => {
                     </div>
                   ))
                 ) : (
-                  <div style={{
-                    padding: "1rem 0",
-                  }}>No users available</div>
+                  <div
+                    style={{
+                      padding: "1rem 0",
+                    }}
+                  >
+                    No users available
+                  </div>
                 ),
             },
             {
@@ -101,9 +108,15 @@ const Available = () => {
                   <p>Resolved</p>
                 </div>
               ),
-              children: <div style={{
-                padding: "1rem 0",
-              }}>Feature Coming Soon...</div>,
+              children: (
+                <div
+                  style={{
+                    padding: "1rem 0",
+                  }}
+                >
+                  Feature Coming Soon...
+                </div>
+              ),
             },
           ]}
         />
