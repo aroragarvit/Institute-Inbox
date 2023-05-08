@@ -1,0 +1,42 @@
+import { useContext } from "react";
+import { Button, Input } from "antd";
+import { AuthContext } from "../context/AuthContext";
+
+export const UpdateDesc = () => {
+  const { user } = useContext(AuthContext);
+  const { TextArea } = Input;
+  return (
+    <div
+      style={{
+        width: "25%",
+        backgroundColor: "white",
+        marginTop: "1rem",
+        padding: "1rem",
+        borderRadius: "0.5rem",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <div>
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: "1rem",
+            marginBottom: "0.5rem",
+          }}
+        >
+          Update Description
+        </p>
+        <TextArea
+          rows={4}
+          placeholder="Enter Description"
+          style={{
+            marginBottom: "1rem",
+          }}
+        />
+      </div>
+      <Button type="primary">Update</Button>
+    </div>
+  );
+};

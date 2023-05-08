@@ -26,6 +26,7 @@ export const AvailableTabs = () => {
         padding: "0.5rem 1rem",
         borderRadius: "0.5rem",
         marginTop: "1rem",
+        width: "70%",
       }}
       defaultActiveKey="1"
       tabBarExtraContent={{
