@@ -23,16 +23,19 @@ export const UpdateDesc = () => {
           style={{
             fontWeight: "bold",
             fontSize: "1rem",
-            marginBottom: "0.5rem",
+            marginBottom: "1rem",
           }}
         >
           Update Description
         </p>
         <TextArea
-          rows={4}
-          placeholder="Enter Description"
+          rows={16}
+          placeholder={
+            user && user.description ? user.description : "Update your description"
+          }
           style={{
             marginBottom: "1rem",
+            resize: "none",
           }}
         />
       </div>
