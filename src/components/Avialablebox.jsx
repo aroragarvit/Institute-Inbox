@@ -24,7 +24,7 @@ const Availablebox = (props) => {
           alignItems: "center",
           width: "auto",
           marginLeft: "12px",
-          marginTop: "18px",
+          marginTop: "12px",
         }}
       >
         <div
@@ -63,7 +63,7 @@ const Availablebox = (props) => {
           height: "14px",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: "5px",
+          marginTop: "0px",
           marginBottom: "7px",
           marginLeft: "12px",
           marginRight: "12px",
@@ -80,6 +80,7 @@ const Availablebox = (props) => {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           width: "auto",
           height: "60px", // Set a fixed height of 60px for the container
           marginBottom: "12px",
@@ -94,7 +95,12 @@ const Availablebox = (props) => {
           overflow: "hidden", // Hide the text that overflows
         }}
       >
-        <div style={{ overflowY: "scroll", height: "100%" }}>
+        <div
+          style={{
+            overflowY: "scroll",
+            height: "100%",
+          }}
+        >
           {/* Enclose the text within another div */}
           Hello my name is Garvit Arora and I am a student of VIT Bhopal
           University currently I am in 2nd year of my college and I am pursuing
@@ -122,6 +128,59 @@ const Availablebox = (props) => {
           }
         `}
       </style>
+      <hr
+        style={{
+          marginTop: "0px",
+          width: "699px",
+          marginLeft: "12px",
+          marginRight: "12px",
+          color: "#E7E7E7",
+        }}
+      ></hr>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "auto",
+          color: "#2E2C34",
+
+          marginLeft: "12px",
+          marginRight: "12px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            fontFamily: "montserrat",
+            fontSize: "13px",
+            fontWeight: "600",
+            lineHeight: "14px",
+            fontStyle: "normal",
+            color: "#84818A",
+            lineHeight: "14px",
+          }}
+        >
+          Date Posted at
+        </div>
+        <div
+          style={{
+            display: "flex",
+            fontFamily: "montserrat",
+            fontSize: "15px",
+            fontWeight: "600",
+            lineHeight: "14px",
+            fontStyle: "normal",
+            color: "#7F56D8",
+            textDecorationLine: "underline",
+            lineHeight: "14px",
+            paddingRight: "60px",
+          }}
+        >
+          Chat
+        </div>
+      </div>
     </div>
   );
 };
