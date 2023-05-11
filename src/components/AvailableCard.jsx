@@ -59,7 +59,7 @@ export const AvailableCard = ({
       >
         {nameOfHostal}
       </p>
-      <p>{description}</p>
+      <p>{description ? description : "No Description Provided"}</p>
       <div
         style={{
           marginTop: "0.5rem",
