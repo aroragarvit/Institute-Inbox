@@ -80,7 +80,7 @@ export const UpdateDesc = () => {
           });
           setUser({
             ...user,
-            description: desc,
+            description: desc, // you are updating the context
           });
         }}
       >

@@ -1,8 +1,10 @@
 import React from "react";
-import { Button, Space } from 'antd';
+import { Button, Space } from "antd";
 import { auth, firestore } from "../config/firebase.jsx";
+import { useState } from "react";
 
 const AvailableButton = () => {
+  const [availability, setAvailability] = useState(false);
   const startLiveLocation = async () => {
     try {
       console.log("Starting live location.");
@@ -43,7 +45,6 @@ const AvailableButton = () => {
 
   const handleAvailableClick = async () => {
     try {
-      await startLiveLocation();
       const currentUser = auth.currentUser;
       if (!currentUser) {
         throw new Error("No user is currently logged in.");
@@ -51,12 +52,24 @@ const AvailableButton = () => {
 
       const usersRef = firestore.collection("users");
       const user = usersRef.doc(currentUser.uid);
+      if (availability === false) {
+        const needed = true;
+        await user.update({
+          isAvailable: needed,
+        });
+      } else if (availability === true) {
+        const needed = false;
+        await user.update({
+          isAvailable: needed,
+        });
+      }
 
-      await user.update({
-        isAvailable: true,
-      });
+      setAvailability(!availability);
 
-      console.log("Availability updated to true.");
+      if (!availability) {
+        console.log("starting live location.");
+        await startLiveLocation();
+      } else console.log("stopping live location.");
     } catch (error) {
       console.error(error);
       throw new Error("Error while setting availability.");
@@ -65,7 +78,9 @@ const AvailableButton = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={handleAvailableClick}>Set Availability</Button>
+      <Button type="primary" onClick={handleAvailableClick}>
+        Set Availability
+      </Button>
     </div>
   );
 };
