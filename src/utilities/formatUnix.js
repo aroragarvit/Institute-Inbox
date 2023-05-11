@@ -1,5 +1,5 @@
 export const formatUnix = (unix) => {
-    const date = new Date(unix * 1000);
+    const date = new Date(unix);
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
