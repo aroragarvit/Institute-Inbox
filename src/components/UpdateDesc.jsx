@@ -64,7 +64,9 @@ export const UpdateDesc = () => {
           }}
         />
       </div>
-      <Button type="primary">Update</Button>
+      <Button type="primary" onClick={() => {
+        console.log(Date.now())
+      }}>Update</Button>
     </div>
   );
 };

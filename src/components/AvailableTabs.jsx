@@ -3,22 +3,17 @@ import { useState, useEffect } from "react";
 import { MessageOutlined, CheckOutlined } from "@ant-design/icons";
 import { AvailableCard } from "./AvailableCard";
 import AvailableButton from "../utilities/AvailableButton_";
-import { fetchUsers } from "../utilities/FetchAvailableUsers.jsx";
+import { useFetchUsers } from "../hooks/useFetchUsers";
+import { formatUnix } from "../utilities/formatUnix";
 
 export const AvailableTabs = () => {
-  const [users, setUsers] = useState([]);
+  const { users } = useFetchUsers();
+  console.log(users);
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = "scroll");
   });
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const usersData = await fetchUsers();
-      setUsers(usersData);
-    };
-    getUsers();
-  }, []);
   return (
     <Tabs
       style={{
@@ -63,9 +58,9 @@ export const AvailableTabs = () => {
                   <AvailableCard
                     name={user.name}
                     avatar={user.avatar}
-                    nameOfHostal={user.hostal}
+                    nameOfHostal={user.hostel}
                     description={user.description}
-                    timeOfPost={user.timeOfPost}
+                    timeOfPost={formatUnix(user.timeOfUpdate)}
                     uid={user.uid}
                   />
                 </div>
