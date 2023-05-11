@@ -5,6 +5,7 @@ export const formatUnix = (unix) => {
     const year = date.getFullYear();
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    
-    return `${hours}:${minutes} ${day}/${month}/${year}`;
+    const time = `${hours}:${minutes} ${day}/${month}/${year}`
+    if(unix) return time;
+    return 'Not Updated Yet';
 }
