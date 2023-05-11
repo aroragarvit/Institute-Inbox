@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export const UpdateDesc = () => {
   const { user } = useContext(AuthContext);
+  console.log(user);
   const { TextArea } = Input;
   return (
     <div

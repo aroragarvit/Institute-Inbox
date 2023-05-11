@@ -57,7 +57,7 @@ export const AvailableTabs = () => {
                 >
                   <AvailableCard
                     name={user.name}
-                    avatar={user.avatar}
+                    avatar={user.photoURL}
                     nameOfHostal={user.hostel}
                     description={user.description}
                     timeOfPost={formatUnix(user.timeOfUpdate)}
