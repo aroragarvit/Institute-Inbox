@@ -29,7 +29,7 @@ export const AvailableCard = ({
             padding: "0.75rem 0",
           }}
         >
-          <Avatar size={32} icon={<UserOutlined />} />
+          <Avatar size={32} icon={<UserOutlined />} src={avatar} />
           <p
             style={{
               margin: "0 0 0 0.1rem",
