@@ -12,8 +12,8 @@ const AuthProvider = ({ children }) => {
       console.log("Auth state changed.");
       if (user) {
         const userRef = firestore.collection("users").doc(user.uid);
-        const snapshot = await userRef.get();
-        const userData = snapshot.data();
+        const userGetted = await userRef.get();
+        const userData = userGetted.data();
         setUser(userData);
       }
       setIsLoadingUser(false); //  as user is not fetched in the beginning and it directly goes to the protected route so we need to wait for the user to be fetched and then go to the protected route so we use this state otherwise it will agarin and again  redirect to the login page

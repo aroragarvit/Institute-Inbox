@@ -1,11 +1,14 @@
 import { useContext } from "react";
 import { Button, Input, Tag } from "antd";
 import { AuthContext } from "../context/AuthContext";
+import { useState } from "react";
+import { firestore } from "../config/firebase.jsx";
 
 export const UpdateDesc = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const { user, setUser } = useContext(AuthContext);
   const { TextArea } = Input;
+  const [desc, setDesc] = useState("");
+
   return (
     <div
       style={{
@@ -63,11 +66,26 @@ export const UpdateDesc = () => {
             marginBottom: "1rem",
             resize: "none",
           }}
+          onChange={(e) => setDesc(e.target.value)}
         />
       </div>
-      <Button type="primary" onClick={() => {
-        console.log(Date.now())
-      }}>Update</Button>
+      <Button
+        type="primary"
+        onClick={async () => {
+          const usersRef = firestore.collection("users");
+          const userDoc = usersRef.doc(user.uid);
+          await userDoc.update({
+            timeOfUpdate: Date.now(),
+            description: desc,
+          });
+          setUser({
+            ...user,
+            description: desc,
+          });
+        }}
+      >
+        Update
+      </Button>
     </div>
   );
 };
