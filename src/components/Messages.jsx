@@ -4,25 +4,21 @@ const Messages = () => {
   return (
     <div className="messages">
       <Message />
+      <Message isOwner />
       <Message />
+      <Message isOwner />
       <Message />
+      <Message isOwner />
       <Message />
+      <Message isOwner />
       <Message />
+      <Message isOwner />
       <Message />
+      <Message isOwner />
       <Message />
+      <Message isOwner />
       <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
+      <Message isOwner />
     </div>
   );
 };
