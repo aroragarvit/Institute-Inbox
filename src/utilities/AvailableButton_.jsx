@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 import { auth, firestore } from "../config/firebase.jsx";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const AvailableButton = () => {
   const currentUser = auth.currentUser;
   const usersRef = firestore.collection("users");
-  const user = usersRef.doc(currentUser.uid);
-
-  const [availability, setAvailability] = useState(user.get("isAvailable"));
+  const userDoc = usersRef.doc(currentUser.uid);
+  const { user, setUser } = useContext(AuthContext);
   const [locationTracker, setLocationTracker] = useState(null);
 
   useEffect(() => {
     const startOrStopLiveLocation = async () => {
-      if (availability) {
+      if (user.isAvailable) {
         await startLiveLocation();
       } else {
         await stopLiveLocation();
       }
     };
     startOrStopLiveLocation();
-  }, [availability]);
+  }, [user.isAvailable]);
 
   const startLiveLocation = async () => {
     try {
@@ -38,7 +39,7 @@ const AvailableButton = () => {
           if (!currentUser) {
             throw new Error("No user is currently logged in.");
           }
-          await user.update({
+          await userDoc.update({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
@@ -59,13 +60,13 @@ const AvailableButton = () => {
     try {
       console.log("Stopping live location.");
 
-      await user.update({
+      await userDoc.update({
         latitude: 0,
         longitude: 0,
       });
 
       if (locationTracker) {
-        await navigator.geolocation.clearWatch(locationTracker);
+        navigator.geolocation.clearWatch(locationTracker);
       }
     } catch (error) {
       console.error(error);
@@ -78,11 +79,14 @@ const AvailableButton = () => {
       if (!currentUser) {
         throw new Error("No user is currently logged in.");
       }
-      const needed = !availability;
-      await user.update({
+      const needed = !user.isAvailable;
+      await userDoc.update({
         isAvailable: needed,
       });
-      setAvailability(needed);
+      setUser({
+        ...user,
+        isAvailable: needed,
+      });
     } catch (error) {
       console.error(error);
       throw new Error("Error while setting availability.");
@@ -92,7 +96,7 @@ const AvailableButton = () => {
   return (
     <div>
       <Button type="primary" onClick={handleAvailableClick}>
-        {availability ? "Disable Availability" : "Start Availability"}
+        {user.isAvailable ? "Disable Availability" : "Start Availability"}
       </Button>
     </div>
   );
