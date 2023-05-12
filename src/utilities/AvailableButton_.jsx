@@ -1,32 +1,43 @@
-import React from "react";
-import { Button, Space } from "antd";
+import React, { useState, useEffect } from "react";
+import { Button } from "antd";
 import { auth, firestore } from "../config/firebase.jsx";
-import { useState } from "react";
 
 const AvailableButton = () => {
-  const [availability, setAvailability] = useState(false);
+  const currentUser = auth.currentUser;
+  const usersRef = firestore.collection("users");
+  const user = usersRef.doc(currentUser.uid);
+
+  const [availability, setAvailability] = useState(user.get("isAvailable"));
+  const [locationTracker, setLocationTracker] = useState(null);
+
+  useEffect(() => {
+    const startOrStopLiveLocation = async () => {
+      if (availability) {
+        await startLiveLocation();
+      } else {
+        await stopLiveLocation();
+      }
+    };
+    startOrStopLiveLocation();
+  }, [availability]);
+
   const startLiveLocation = async () => {
     try {
       console.log("Starting live location.");
-      // First, request permission to access the user's location
       const permissionStatus = await navigator.permissions.query({
         name: "geolocation",
       });
       console.log(permissionStatus);
       if (permissionStatus.state !== "granted") {
+        alert("Please allow location access to enable tracking.");
         throw new Error("Location permission not granted.");
       }
-
-      // Permission is granted, so start tracking the location
-      navigator.geolocation.watchPosition(
+      const tracker = navigator.geolocation.watchPosition(
         async (position) => {
-          const currentUser = auth.currentUser;
+          console.log("continuous monitoring");
           if (!currentUser) {
             throw new Error("No user is currently logged in.");
           }
-
-          const usersRef = firestore.collection("users");
-          const user = usersRef.doc(currentUser.uid);
           await user.update({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -37,39 +48,41 @@ const AvailableButton = () => {
           throw new Error("Error while tracking location.");
         }
       );
+      setLocationTracker(tracker);
     } catch (error) {
       console.error(error);
       throw new Error("Error while starting live location.");
     }
   };
 
+  const stopLiveLocation = async () => {
+    try {
+      console.log("Stopping live location.");
+
+      await user.update({
+        latitude: 0,
+        longitude: 0,
+      });
+
+      if (locationTracker) {
+        await navigator.geolocation.clearWatch(locationTracker);
+      }
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error while stopping live location.");
+    }
+  };
+
   const handleAvailableClick = async () => {
     try {
-      const currentUser = auth.currentUser;
       if (!currentUser) {
         throw new Error("No user is currently logged in.");
       }
-
-      const usersRef = firestore.collection("users");
-      const user = usersRef.doc(currentUser.uid);
-      if (availability === false) {
-        const needed = true;
-        await user.update({
-          isAvailable: needed,
-        });
-      } else if (availability === true) {
-        const needed = false;
-        await user.update({
-          isAvailable: needed,
-        });
-      }
-
-      setAvailability(!availability);
-
-      if (!availability) {
-        console.log("starting live location.");
-        await startLiveLocation();
-      } else console.log("stopping live location.");
+      const needed = !availability;
+      await user.update({
+        isAvailable: needed,
+      });
+      setAvailability(needed);
     } catch (error) {
       console.error(error);
       throw new Error("Error while setting availability.");
@@ -79,7 +92,7 @@ const AvailableButton = () => {
   return (
     <div>
       <Button type="primary" onClick={handleAvailableClick}>
-        Set Availability
+        {availability ? "Disable Availability" : "Start Availability"}
       </Button>
     </div>
   );
