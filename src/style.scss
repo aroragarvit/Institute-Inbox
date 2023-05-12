@@ -29,7 +29,8 @@
     border: 1px solid white;
     border-radius: 12px;
     display: flex;
-    margin-top: 5vh;
+    width: 80%;
+    margin: 5vh auto;
     @include tablet {
       width: 90%;
     }
