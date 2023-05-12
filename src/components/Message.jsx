@@ -1,4 +1,4 @@
-const Message = ({isOwner = false}) => {
+const Message = ({isOwner = false, message=""}) => {
   return (
     <div className={`message ${isOwner && "owner"}`}>
       <div className="messageInfo">
@@ -6,7 +6,7 @@ const Message = ({isOwner = false}) => {
         <span>Just Now</span>
       </div>
       <div className="messageContent">
-        <p> Helooooooooooooooooooooooooo</p>
+        <p>{message}</p>
         <img src="https://picsum.photos/200" alt="" />
       </div>
     </div>
