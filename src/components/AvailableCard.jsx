@@ -23,6 +23,7 @@ export const AvailableCard = ({
   uid,
 }) => {
   const { user } = useContext(AuthContext);
+  const combinedId = user.uid > uid ? user.uid + uid : uid + user.uid;
   return (
     <Card
       size={"small"}
@@ -47,25 +48,14 @@ export const AvailableCard = ({
         </Space>
       }
       extra={
-        <MessageOutlined
-          onClick={async () => {
-            const combinedId = user.uid > uid ? user.uid + uid : uid + user.uid;
-            try {
-              const res = await getDocs(firestore, "chats", combinedId); // Same logic
-              if (!res.exists) {
-                await setDoc(doc, (firestore, "chats", combinedId), {
-                  messages: [],
-                });
-              }
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-          style={{
-            fontSize: "20px",
-            color: "#7F56D8",
-          }}
-        />
+        <Link to={`/home/${combinedId}`}>
+          <MessageOutlined
+            style={{
+              fontSize: "20px",
+              color: "#7F56D8",
+            }}
+          />
+        </Link>
       }
     >
       <p
