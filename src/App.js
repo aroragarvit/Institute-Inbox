@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Available from "./pages/Available";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Availablebox from "./components/Avialablebox";
+
 import "./style.scss";
 
 function App() {
