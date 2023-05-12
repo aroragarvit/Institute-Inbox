@@ -24,7 +24,7 @@ export const AvailableCard = ({
   uid,
 }) => {
   const { user } = useContext(AuthContext);
-  const combinedId = user.uid > uid ? user.uid + uid : uid + user.uid;
+
   return (
     <Card
       size={"small"}
@@ -49,7 +49,7 @@ export const AvailableCard = ({
         </Space>
       }
       extra={
-        <Link to={`/home/${combinedId}`}>
+        <Link to={`/home/${uid}`}>
           <MessageOutlined
             style={{
               fontSize: "20px",
