@@ -4,6 +4,7 @@ import { firestore } from "../config/firebase.jsx";
 import { getDocs, setDoc, doc } from "firebase/firestore";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 // user type: {
 //     uid: string,
