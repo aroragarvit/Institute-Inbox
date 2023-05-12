@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
 import Chat from "../components/Chat.jsx";
 import Navbar from "../components/Navbar";
+import { useParams } from "react-router-dom";
 
 const Home = () => {
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-  //   return () => (document.body.style.overflow = "scroll");
-  // });
+  const { id: combinedId } = useParams();
+  console.log(combinedId)
+
   return (
     <div
       style={{
