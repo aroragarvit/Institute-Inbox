@@ -1,5 +1,9 @@
 import { Avatar, Card, Space } from "antd";
 import { UserOutlined, MessageOutlined } from "@ant-design/icons";
+import { firestore } from "../config/firebase.jsx";
+import { getDocs, setDoc, doc } from "firebase/firestore";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 // user type: {
 //     uid: string,
@@ -18,6 +22,7 @@ export const AvailableCard = ({
   avatar,
   uid,
 }) => {
+  const { user } = useContext(AuthContext);
   return (
     <Card
       size={"small"}
@@ -43,6 +48,17 @@ export const AvailableCard = ({
       }
       extra={
         <MessageOutlined
+          onClick={async () => {
+            const combinedId = user.uid > uid ? user.uid + uid : uid + user.uid;
+            try {
+              const res = await getDocs(firestore, "chats", combinedId);
+              if (!res.exists) {
+                await setDoc(doc, (firestore, "chats", combinedId), {
+                  messages: [],
+                });
+              }
+            } catch (err) {}
+          }}
           style={{
             fontSize: "20px",
             color: "#7F56D8",
