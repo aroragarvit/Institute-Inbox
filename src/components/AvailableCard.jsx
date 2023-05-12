@@ -51,13 +51,15 @@ export const AvailableCard = ({
           onClick={async () => {
             const combinedId = user.uid > uid ? user.uid + uid : uid + user.uid;
             try {
-              const res = await getDocs(firestore, "chats", combinedId);
+              const res = await getDocs(firestore, "chats", combinedId); // Same logic
               if (!res.exists) {
                 await setDoc(doc, (firestore, "chats", combinedId), {
                   messages: [],
                 });
               }
-            } catch (err) {}
+            } catch (err) {
+              console.error(err);
+            }
           }}
           style={{
             fontSize: "20px",
