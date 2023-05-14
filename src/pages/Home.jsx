@@ -46,7 +46,7 @@ const Home = () => {
       <Navbar />
       <div className="home">
         <div className="container">
-          <Chat></Chat>
+          {combinedID && <Chat combinedID={combinedID} />}
         </div>
       </div>
     </div>
