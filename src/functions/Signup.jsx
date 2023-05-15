@@ -10,7 +10,6 @@ export const signup = async (values) => {
       values.password
     );
     const user = userCredential.user;
-    console.log(user);
 
     // Send email verification request
     await user.sendEmailVerification();
@@ -31,16 +30,17 @@ export const signup = async (values) => {
       await auth.signOut();
       throw new Error("Please verify your email to sign up.");
     }
-    const url = await uploadImage(values.image, user.uid);
+
+    let url = "";
+    if (values.image) {
+      url = await uploadImage(values.image, user.uid);
+    }
 
     // Update the user's profile
     await user.updateProfile({
-      email: values.email,
       displayName: values.name,
       photoURL: url,
     });
-
-    console.log(user);
 
     // Create a new document in the users collection with the uid of the user
     const usersCollection = firestore.collection("users");
