@@ -4,14 +4,19 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Spin } from "antd";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useContext } from "react";
 
 import { login } from "../functions/SignIn.jsx";
 
 import { auth } from "../config/firebase.jsx";
 const Login = () => {
   const redirect = useNavigate();
-  const user = auth.currentUser;
+  const { user } = useContext(AuthContext);
+
+  console.log(user);
   useEffect(() => {
+    console.log(user);
     if (user) {
       console.log("redirecting to home");
       setTimeout(() => {

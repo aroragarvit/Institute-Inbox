@@ -10,6 +10,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     if (!user) {
       console.log("redirecting to login");
+      console.log(user);
       setTimeout(() => {
         redirect("/");
       }, 500);
