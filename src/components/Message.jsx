@@ -11,11 +11,16 @@ const Message = ({ message, date, senderId }) => {
   const { user } = useContext(AuthContext); // our current user
   // current user also get that
   const { id: userId } = useParams();
+  const [image, setImage] = useState(null);
   const userRef = firestore.collection("users").doc(userId);
-  const image = userRef.get().then((doc) => {
-    const image = doc.data().photoURL;
-    return image;
-  });
+  useEffect(() => {
+    const getImage = async () => {
+      const userGetted = await userRef.get();
+      const userData = userGetted.data();
+      setImage(userData.photoURL);
+    };
+    getImage();
+  }, []);
   const ref = useRef();
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -29,7 +34,7 @@ const Message = ({ message, date, senderId }) => {
       </div>
       <div className="messageContent">
         <p>{message}</p>
-        <img src="https://picsum.photos/200" alt="" />
+        {/* <img src="https://picsum.photos/200" alt="" />*/}
       </div>
     </div>
   );
