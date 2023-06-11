@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.4.4",
     "antd-phone-input": "^0.1.4",
+    "cross-env": "^7.0.3",
     "firebase": "^9.21.0",
     "firebase-admin": "^11.7.0",
     "firebase-functions": "^4.3.1",
@@ -23,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
